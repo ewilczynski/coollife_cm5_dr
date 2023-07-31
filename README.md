@@ -535,12 +535,12 @@ Find below an example for the two symbology types:
 
 ##### Vector
 
-In the output of the calculation module, vector layers have the exact same management of their symbology as raster layers. Either the symbology is already defined because the type exists, or you have to define it and set the *type* on "custom". Here is an example:
+In the output of the calculation module, vector layers have the exact same management of their symbology as raster layers. Either the symbology is already defined because the type exists, or you have to define it and set the *type* on "custom". Additionally, **the name of the vector layer should include the term "shapefile"**. Here is an example:
 
 ```python
   "vector_layers":[
-      {"name": "wwtp_1", "path": output_shp_zipped_1, "type": "wwtp"},
-      {"name": "wwtp_2_custom", "path": output_shp_zipped_2, "type": "custom",
+      {"name": "wwtp_1 - shapefile", "path": output_shp_zipped_1, "type": "wwtp"},
+      {"name": "wwtp_2_custom - shapefile", "path": output_shp_zipped_2, "type": "custom",
                "symbology": [
                     {"red":255, "green":255, "blue":255, "opacity":0.8, "value":"100", "label":"250 kW"},
                     {"red":255, "green":252, "blue":188, "opacity":0.8, "value":"200", "label":"500 kW"},
