@@ -101,7 +101,7 @@ Create an empty folder on your computer with the same name and go inside the fol
 ``` bash
   git init
   git remote add origin https://github.com/YourUsername/name_of_my_module.git # add a remote link to your repository
-  git remote add upstream https://github.com/HotMaps/base_calculation_module.git # add a remote link to the base calculation module (BCM)
+  git remote add upstream https://vlhtuleap.hevs.ch/plugins/git/git-eranet/base_calculation_module.git # add a remote link to the base calculation module (BCM)
   git pull upstream master
   git add .
   git commit -m "first commit" # update changes
