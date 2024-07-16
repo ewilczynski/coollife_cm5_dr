@@ -56,7 +56,7 @@ _______________________________
 
 
 The CM can run on its own, but when it is on the same network as the toolbox API (HTAPI), it will be automatically detected.
-Using Celery queue to register, HTAPI contains heartbeat that will check at anytime if a calculation is running or not. In other words, the achitecture is working in realtime and detects new CMs.
+Using Celery queue to register, HTAPI contains heartbeat that will check at anytime if a calculation is running or not. In other words, the architecture is working in realtime and detects new CMs.
 
 
 
@@ -93,10 +93,10 @@ In order to create a repository, follow the belowing steps.
 
 
 1. Create a repository on your GitHub account and assign a name to it, e.g. **name_of_my_module**.\
-Do **NOT** initialize the reposiany with a license nor a readme file.
+Do **NOT** initialize the repository with a license nor a readme file.
 Create an empty folder on your computer with the same name and go inside the folder.\
 
-1. Use these following git commands to retrieve the code of **base_calculation_module**:
+2. Use these following git commands to retrieve the code of **base_calculation_module**:
 
 ``` bash
   git init
@@ -129,7 +129,7 @@ git pull upstream master
 *If you encounter any issue like GIT conflict please contact EASILab (support@easilabdev.ch)*
 
 
-1. Release a version of your CM
+6. Release a version of your CM
 
 
   After testing your calculation module you can update the release branch (master branch)
@@ -138,7 +138,7 @@ git fetch && git checkout master # retrieve master branch
 git merge develop # update the changes from develop to master
 git push origin master # push changes on master branch
 ```
-and tag your version to take a snapshot of it
+7. And tag your version to take a snapshot of it
 ```bash
 git tag -a number_of_the_version
 ```
@@ -170,7 +170,7 @@ The architecture of a sample CM is illustrated below:
     │   │   ├── caching.py
     │   │   ├── json.py
     │   │   ├── paginate.py
-    │   │   └──rate_limit.py
+    │   │   └── rate_limit.py
     │   │
     │   │
     │   ├── __init__.py
@@ -206,7 +206,7 @@ The architecture of a sample CM is illustrated below:
 
 * `app/requirements.txt` - the list of Python framework  (PyPi) requirements.
 
-* `app/api_v1/calculation_module.py` - hear you can call your CM
+* `app/api_v1/calculation_module.py` - here you can call your CM
 * `app/api_v1/my_calculation_module_directory` - all additionnal files for running the calculation module must be added in this directory
 
 
@@ -419,7 +419,7 @@ Find below two examples of inputs, one with a type *input* and the other one wit
 *******************************   
 
 ## Handling calculation module outputs
- In oder to show the outputs of your CM in the front-end, your CM should respect the guidelines defined by base_calculation_module.
+In order to show the outputs of your CM in the front-end, your CM should respect the guidelines defined by base_calculation_module.
 The purpose of this part is to give developers the ability to build different kinds of outputs (graphic, layers, indicators). All the outputs should be retunred in form of a dictionary ("result" dictionary). Find below an example:
 
 
@@ -461,7 +461,7 @@ The purpose of this part is to give developers the ability to build different ki
 
 ### Indicators
 
-In `transaction.py`, the CM provider can modify the output in order to display as many indicators as he/she wants on the front-end. This indicator will be displayed on the RESULT panel of the front-end.
+In `transaction.py`, the CM provider can modify the output in order to display as many indicators as they want on the front-end. This indicator will be displayed on the RESULT panel of the front-end.
 
 
 ##### Structure of the indicator output
@@ -684,11 +684,10 @@ In the root directory:
 ## Adding layers for CM 
 
 1. Create a repository in GitLab (To-Do: also provide the link to the GitLab) with the name of the layer in lower case
- *layer_name/data/layer_name.tif*, the repository name must be the same as the layer
-
-1. this data must be uploaded in the server in the folowing place *var/hotmaps/repositories/layer_name/data/layer_name.tif*
-this is usally done by the data integration when a new layer in added to the Gitlab repository
-1. this data must be known by frontend by adding the layer in the file layer-interation.data.ts (https://github.com/HotMaps/Hotmaps-toolbox-client/blob/master/src/app/features/layers-interaction/layers-interaction.data.ts)
+ `layer_name/data/layer_name.tif`, the repository name must be the same as the layer
+2. This data must be uploaded in the server in the following place `var/hotmaps/repositories/layer_name/data/layer_name.tif`  
+This is usually done by the data integration when a new layer in added to the Gitlab repository
+3. This data must be known by frontend by adding the layer in the file `src/app/layers.ts`
 
 
 <code><ins>**[To Top](#table-of-contents)**</ins></code>
