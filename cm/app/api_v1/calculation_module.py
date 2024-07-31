@@ -87,7 +87,7 @@ def calculation(output_directory, inputs_raster_selection,inputs_vector_selectio
     ]
     result['graphics'] = graphics
     result['vector_layers'] = vector_layers
-    result['raster_layers'] = [{"name": "layers of heat_densiy {}".format(factor),"path": output_raster1, "type": "heat"}]
+    result['raster_layers'] = [{"name": "layers of heat_density {}".format(factor),"path": output_raster1, "type": "heat"}]
     print ('result',result)
     return result
 
