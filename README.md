@@ -126,7 +126,7 @@ Create an empty folder on your computer with the same name and go inside the fol
 git pull upstream master
 ```
 
-*If you encounter any issue like GIT conflict please contact CREM.(support@crem.ch)*
+*If you encounter any issue like GIT conflict please contact HES-SO Valais-Wallis.(citiwatts@hevs.ch)*
 
 
 6. Release a version of your CM
