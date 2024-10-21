@@ -8,7 +8,7 @@ CM_REGISTER_Q = 'rpc_queue_CM_register' # Do no change this value
 CM_NAME = 'CM - Scale heat and cool density maps'
 RPC_CM_ALIVE= 'rpc_queue_CM_ALIVE' # Do no change this value
 RPC_Q = 'rpc_queue_CM_compute' # Do no change this value
-CM_ID = 1 # CM_ID is defined by EASILab (support@easilabdev.ch)
+CM_ID = 1 # CM_ID is defined by EASILab (citiwatts@hevs.ch)
 PORT_LOCAL = int('500' + str(CM_ID))
 PORT_DOCKER = 80
 

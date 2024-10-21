@@ -1,7 +1,7 @@
 
-from flask import request, abort, jsonify ,url_for, g,flash
+from flask import request
 from . import api
-from .. import SIGNATURE,CM_NAME
+from .. import SIGNATURE
 import json
 import requests
 import logging
@@ -10,7 +10,6 @@ from flask import send_from_directory
 from  app import helper
 from app import constant
 
-from app.api_v1 import errors
 import socket
 from . import calculation_module
 from app import CalculationModuleRpcClient
@@ -36,7 +35,7 @@ def register():
     #""" register the Calculation module (CM)to the main web services (MWS)-
     #the CM will send its SIGNATURE to the main web service, CM SIGNATURE contains elements to identity the CM and
     #how to handle it and the list of input it needs on the user interface. CM SIGNATURE can be find on app/constants.py file, this file must be change manually
-    #Also constants.py must contains a CM_ID that is a unique number that as to be defined by EASILab (support@easilabdev.ch)
+    #Also constants.py must contains a CM_ID that is a unique number that as to be defined by EASILab (citiwatts@hevs.ch)
 
     #  ---
     #  definitions:
