@@ -7,6 +7,9 @@ from ..constant import CM_NAME
 import pandas as pd
 import time
 
+from .my_calculation_module_directory.COOLLIFE_CM5_v1 import load_graphics
+#from .my_calculation_module_directory.extract_nuts_id import get_country_name
+
 """ Entry point of the calculation module function"""
 
 #TODO: CM provider must "change this code"
@@ -14,15 +17,22 @@ import time
 #TODO: CM provider can "add all the parameters he needs to run his CM
 #TODO: CM provider can "return as many indicators as he wants"
 def calculation(output_directory, inputs_raster_selection,inputs_vector_selection, inputs_parameter_selection):
-    #TODO the folowing code must be changed by the code of the calculation module
-
+    #TODO the folowing code must be changed by the code of the calculation module    
+    
+    country_name = inputs_parameter_selection['country_name']
+    graphics = load_graphics(country_name)
+    
+    #path2data = os.path.join(os.path.dirname(__file__), 'data')
+    #file_path_nuts_code = os.path.join(path2data, "nuts_id_number.csv")
+    #country_name = get_country_name(file_path_nuts_code,path_nuts_id_tif)
+    
     # generate the output raster file
-    output_raster1 = generate_output_file_tif(output_directory)
+    #output_raster1 = generate_output_file_tif(output_directory)
     # retrieve the inputs all input defined in the signature
-    factor = float(inputs_parameter_selection["multiplication_factor"])
+    #factor = float(inputs_parameter_selection["multiplication_factor"])
 
     #retrieve the inputs layes
-    input_raster_selection =  inputs_raster_selection["heat"]
+    #input_raster_selection =  inputs_raster_selection["heat"]
 
 
     #retrieve the inputs layes
@@ -41,7 +51,7 @@ def calculation(output_directory, inputs_raster_selection,inputs_vector_selectio
 
 
 
-
+    """
     # TODO this part bellow must be change by the CM provider
     ds = gdal.Open(input_raster_selection)
     ds_band = ds.GetRasterBand(1)
@@ -77,17 +87,18 @@ def calculation(output_directory, inputs_raster_selection,inputs_vector_selectio
     # output geneneration of the output
     graphics = []
     vector_layers = []
+    """
 
     #TODO to create zip from shapefile use create_zip_shapefiles from the helper before sending result
     #TODO exemple  output_shpapefile_zipped = create_zip_shapefiles(output_directory, output_shpapefile)
     result = dict()
     result['name'] = CM_NAME
-    result['indicator'] = [
-        {"unit": "GWh", "name": "Heat density total multiplied by  {}".format(factor),"value": str(hdm_sum)}
-    ]
+    #result['indicator'] = [
+    #    {"unit": "GWh", "name": "Heat density total multiplied by  {}".format(factor),"value": str(hdm_sum)}
+    #]
     result['graphics'] = graphics
-    result['vector_layers'] = vector_layers
-    result['raster_layers'] = [{"name": "layers of heat_densiy {}".format(factor),"path": output_raster1, "type": "heat"}]
+    #result['vector_layers'] = vector_layers
+    #result['raster_layers'] = [{"name": "layers of heat_densiy {}".format(factor),"path": output_raster1, "type": "heat"}]
     print ('result',result)
     return result
 

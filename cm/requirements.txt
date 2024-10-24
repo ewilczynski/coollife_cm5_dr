@@ -45,3 +45,5 @@ urllib3==1.22
 vine==5.0.0
 Werkzeug==2.0.1
 zipp==3.5.0
+glpk==5.0
+pvlib==0.7.2
