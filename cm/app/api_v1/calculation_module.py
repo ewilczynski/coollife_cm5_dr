@@ -83,7 +83,7 @@ def calculation(output_directory, inputs_raster_selection,inputs_vector_selectio
     result = dict()
     result['name'] = CM_NAME
     result['indicator'] = [
-        {"unit": "GWh", "name": "Heat density total multiplied by  {}".format(factor),"value": str(hdm_sum)}
+        {"unit": "GWh/yr", "name": "Heat density total multiplied by  {}".format(factor),"value": str(hdm_sum)}
     ]
     result['graphics'] = graphics
     result['vector_layers'] = vector_layers

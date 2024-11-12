@@ -41,7 +41,7 @@ SIGNATURE = {
     "wiki_url": "https://wiki.hotmaps.hevs.ch/en/CM-Scale-heat-and-cool-density-maps",
     "layers_needed": [],
     "type_layer_needed": [
-        {"type": "heat", "description": "Choose a heat demand density layer."}
+        {"name":"Heat demand density", "type": "heat", "description": "Choose a heat demand density layer."}
     ],
     "type_vectors_needed": [],
     "cm_url": "Do not add something",
