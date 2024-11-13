@@ -14,8 +14,7 @@ pipeline {
                     env.REPO_NAME = getRepoName()
                     try {
                         sh "docker-compose -f docker-compose.tests.yml -p visualization_tool up --build --exit-code-from $REPO_NAME"
-                    }
-                    finally {
+                    } finally {
                         sh 'docker-compose -f docker-compose.tests.yml down -v --rmi all --remove-orphans'
                     }
                 }
@@ -25,7 +24,7 @@ pipeline {
         stage('Deploy') {
             steps {
                 script {
-                    env.COMMIT_ID = sh(returnStdout: true, script: 'git rev-parse HEAD')
+                    env.COMMIT_ID = sh(returnStdout: true, script: 'git rev-parse HEAD').trim()
                     env.REPO_NAME = getRepoName()
                     env.BRANCH_NAME = scm.branches[0].name
 
@@ -52,17 +51,15 @@ pipeline {
     post {
         success {
             echo "SUCCESS"
-            // always {
-            //     emailext body: 'A Test EMail', recipientProviders: [[$class: 'DevelopersRecipientProvider'], [$class: 'RequesterRecipientProvider']], subject: 'Test'
-            // }
         }
 
         failure {
-            echo "FAILED",
-            // Email
-            emailext body: 'Check console output at $JOB_URL to view the results',
-            to: "support@easilabdev.ch",
-            subject: 'Jenkins pipeline failed : $PROJECT_NAME - #$BUILD_NUMBER'
+            echo "FAILED"
+            emailext(
+                body: 'Check console output at $JOB_URL to view the results',
+                to: 'support@easilabdev.ch',
+                subject: 'Jenkins pipeline failed: $PROJECT_NAME - #$BUILD_NUMBER'
+            )
         }
     }
 }
