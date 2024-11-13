@@ -23,6 +23,7 @@ TRANFER_PROTOCOLE ='http://'
 INPUTS_CALCULATION_MODULE = [
     {'input_name': 'Multiplication factor',
      'input_type': 'input',
+     'input_description': 'Description of the input',
      'input_parameter_name': 'multiplication_factor',
      'input_value': '1',
      'input_priority': 0,
@@ -40,7 +41,7 @@ SIGNATURE = {
     "wiki_url": "https://wiki.hotmaps.hevs.ch/en/CM-Scale-heat-and-cool-density-maps",
     "layers_needed": [],
     "type_layer_needed": [
-        {"type": "heat", "description": "Choose a heat demand density layer."}
+        {"name":"Heat demand density", "type": "heat", "description": "Choose a heat demand density layer."}
     ],
     "type_vectors_needed": [],
     "cm_url": "Do not add something",
