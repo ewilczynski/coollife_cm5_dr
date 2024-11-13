@@ -626,6 +626,7 @@ The purpose of this part is to give the ability to the developer to create graph
 Please find in the link below the list of layers available as input for a CM (ressource name column):
 
 https://docs.google.com/spreadsheets/d/1cGMRWkgIL8jxghrpjIWy6Xf_kS3Dx6LqGNfrCBLQ_GI/edit#gid=1730959780
+NOT UP TO DATE !
 
 
 *******************************************************************
