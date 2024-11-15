@@ -489,7 +489,8 @@ In `transaction.py`, the CM provider can modify the output in order to display a
 - **raster_layers (array):** array of raster layers
     - **name (string):** name to be displayed on the frontend
     - **path (string):** path generated for the geotif file
-    - **type (string):** type of the layer generated
+    - **type (string):** type of the layer generated for symbology (legend)
+    - **layer (string):** type of the layer generated (for toolchaining in CM)
 
 
 In order to generate a path, developers should use the function *generate_output_file_tif()*, which needs the output directory as an argument. This function should be imported to the `calculation_module.py`. The path must be generated on the first lines of *calculation()* function found in `calculation_module.py`.  This funciton For example:
