@@ -360,26 +360,22 @@ The JSON payload is an array of inputs and will be used to modify automatically 
 
 
   - input: this is a textbox in which the user can enter a value
-
  ![alt text][logoinput]
 
   - select: this is a drop down menu that allows the user to choose one value from a list
-
  ![alt text][logoselect]
 
  - radio: this allows the user to select only one of the predefined choices
-
- ![alt text][logoradio]
+  ![alt text][logoradio]
 
  - checkbox: this allows the user to choose between two choices mutually exclusive options
-
  ![alt text][logocheckbox]
 
  - range: this allows the user to set a value by moving an indicator
-
  ![alt text][logorange]
 
-
+- **input_description**: description put in the tooltip, can be empty
+  
 - **input_parameter_name**: input parameter name that the CM needs to retrieve for calculation
 
 - **input_value**: default value for the input that will be displayed on the user interface
