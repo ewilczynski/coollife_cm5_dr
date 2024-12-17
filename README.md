@@ -523,7 +523,9 @@ Find below an example for the two symbology types:
 
 ```python
   "raster_layers":[
-      {"name": "heat density layer divided by 2", "path": output_raster_1, "type": "heat"},
+      {"name": "heat density layer divided by 2", "path": output_raster_1, "type": "heat"}, #simple layer reusing known type
+      {"name": "layers of heat_density ","path": output_raster_1, "type": "heat", "layer": "heat_tot_curr_density"}  #toolchaining
+      # custom
       {"name": "district heating coherent areas", "path": output_raster_2, "type": "custom",
                "symbology": [
                     {"red":255, "green":121, "blue":121, "opacity":0.8, "value":"100", "label":"DH Areas"}
