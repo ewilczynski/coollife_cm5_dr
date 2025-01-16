@@ -29,23 +29,24 @@ INPUTS_CALCULATION_MODULE = [
      'input_priority': 0,
      'input_unit': '',
      'input_min': 0,
-     'input_max': 10, 'cm_id': CM_ID  # Do no change this value
+     'input_max': 10,
+     'cm_id': CM_ID  # Do no change this value
      },
 ]
 
 
 SIGNATURE = {
-
-    "category": "Demand",
     "cm_name": CM_NAME,
+    "category": "Demand",
     "wiki_url": "https://wiki.hotmaps.hevs.ch/en/CM-Scale-heat-and-cool-density-maps",
+    "cm_url": "Do not add something",
+    "cm_description": "This calculation module allows to scale the heat demand density layer up or down.",
+    "cm_id": CM_ID,
+    "authorized_scale":["NUTS 3", "LAU 2", "Hectare"],
+    "inputs_calculation_module": INPUTS_CALCULATION_MODULE,
     "layers_needed": [],
     "type_layer_needed": [
         {"name":"Heat demand density", "type": "heat", "description": "Choose a heat demand density layer."}
     ],
     "type_vectors_needed": [],
-    "cm_url": "Do not add something",
-    "cm_description": "This calculation module allows to scale the heat demand density layer up or down.",
-    "cm_id": CM_ID,
-    'inputs_calculation_module': INPUTS_CALCULATION_MODULE
 }
