@@ -42,7 +42,7 @@ SIGNATURE = {
     "cm_url": "Do not add something",
     "cm_description": "This calculation module allows to scale the heat demand density layer up or down.",
     "cm_id": CM_ID,
-    "authorized_scale":["NUTS 3", "LAU 2", "Hectare"],
+    "authorized_scale":[],
     "inputs_calculation_module": INPUTS_CALCULATION_MODULE,
     "layers_needed": [],
     "type_layer_needed": [
