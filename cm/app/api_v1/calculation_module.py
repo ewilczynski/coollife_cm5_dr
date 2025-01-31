@@ -6,6 +6,7 @@ from ..helper import generate_output_file_tif, create_zip_shapefiles
 from ..constant import CM_NAME
 import pandas as pd
 import time
+import logging
 
 from .my_calculation_module_directory.COOLLIFE_CM5_v1 import load_graphics
 #from .my_calculation_module_directory.extract_nuts_id import get_country_name
@@ -16,8 +17,77 @@ from .my_calculation_module_directory.COOLLIFE_CM5_v1 import load_graphics
 #TODO: CM provider must "not change input_raster_selection,output_raster  1 raster input => 1 raster output"
 #TODO: CM provider can "add all the parameters he needs to run his CM
 #TODO: CM provider can "return as many indicators as he wants"
-def calculation(output_directory, inputs_raster_selection,inputs_vector_selection, inputs_parameter_selection):
-    #TODO the folowing code must be changed by the code of the calculation module    
+def calculation(output_directory, inputs_raster_selection, inputs_parameter_selection): 
+                #areas):
+    #TODO the folowing code must be changed by the code of the calculation module
+
+    # List of valid country codes (FULL LIST -> CM Developper must select the country they need and at them in the next list)
+    #validatecountrycode = {
+    #    "AT": "Austria", "BE": "Belgium", "BG": "Bulgaria", "CY": "Cyprus", "CZ": "Czech Republic",
+    #    "DE": "Germany", "DK": "Denmark", "EE": "Estonia", "FI": "Finland", "FR": "France", "EL": "Greece",
+    #    "HU": "Hungary", "HR": "Croatia", "IE": "Ireland", "IT": "Italy", "LT": "Lithuania",
+    #    "LU": "Luxembourg", "LV": "Latvia", "MT": "Malta", "NL": "Netherlands", "PL": "Poland",
+    #    "PT": "Portugal", "RO": "Romania", "ES": "Spain", "SE": "Sweden", "SI": "Slovenia",
+    #    "SK": "Slovakia", "UK": "United Kingdom", "AL": "Albania", "ME": "Montenegro",
+    #    "MK": "North Macedonia", "RS": "Serbia", "TR": "Turkey", "CH": "Switzerland", "IS": "Iceland",
+    #    "LI": "Liechtenstein", "NO": "Norway"
+    #}
+
+    '''
+    validatecountrycode = {
+        "AT": "Austria", "BE": "Belgium", "BG": "Bulgaria", "HR": "Croatia", "CY": "Cyprus", "CZ": "Czech Republic", "DK": "Denmark", 
+        "EE": "Estonia", "FI": "Finland", "FR": "France", "DE": "Germany", "EL": "Greece", "HU": "Hungary", "IE": "Ireland", "IT": "Italy",
+        "LV": "Latvia", "LT": "Lithuania", "LU": "Luxembourg", "MT": "Malta", "NL": "Netherlands", "PL": "Poland", "PT": "Portugal", "RO": "Romania",
+        "SK": "Slovakia", "SI": "Slovenia", "ES": "Spain", "SE": "Sweden"
+    }
+
+    errorCode = 0
+
+    # Check if areas is empty
+    if not areas:
+        errorCode = 1
+    # Check if areas contains more than one element
+    elif len(areas) > 1:
+        errorCode = 2
+    # Check if the code in areas is valid
+    elif areas[0] not in validatecountrycode:
+        errorCode = 3
+
+    # If errorCode is not zero, return an error
+    if errorCode != 0:
+        result['name'] = CM_NAME
+        result['indicator'] = []
+
+        if errorCode == 1:
+            error_message = "No area selected. Please select one area."
+        elif errorCode == 2:
+            error_message = "More than one area selected. Please select only one area."
+        elif errorCode == 3:
+            country_list = ', '.join(validatecountrycode.values())
+            error_message = (
+                f"The selected country is not supported! Please select one of the following countries: {country_list}."
+            )
+
+        # Set indicator with error format
+        # ! The result must be check to be sure the format is correct for your CM.
+        result['indicator'] = [
+            {
+                "name": error_message,
+                "value": "",
+                "unit": ""
+            }
+        ]
+
+        result['graphics'] = []
+        result['vector_layers'] = []
+        result['raster_layers'] = []
+
+        print('Result:', result)
+        return result
+
+
+    country_name = validatecountrycode.get(areas[0], "Unknown Country")
+    '''
     
     country_name = inputs_parameter_selection['country_name']
     graphics = load_graphics(country_name)
@@ -93,12 +163,12 @@ def calculation(output_directory, inputs_raster_selection,inputs_vector_selectio
     #TODO exemple  output_shpapefile_zipped = create_zip_shapefiles(output_directory, output_shpapefile)
     result = dict()
     result['name'] = CM_NAME
-    result['indicator'] = [
-        {"unit": "GWh/yr", "name": "Heat density total multiplied by  {}".format(factor),"value": str(hdm_sum)}
-    ]
+    #result['indicator'] = [
+    #    {"unit": "GWh", "name": "Heat density total multiplied by  {}".format(factor),"value": str(hdm_sum)}
+    #]
     result['graphics'] = graphics
-    result['vector_layers'] = vector_layers #toolchaining
-    result['raster_layers'] = [{"name": "layers of heat_density {}".format(factor),"path": output_raster1, "type": "heat", "layer": "heat_tot_curr_density"}]
+    #result['vector_layers'] = vector_layers
+    #result['raster_layers'] = [{"name": "layers of heat_densiy {}".format(factor),"path": output_raster1, "type": "heat"}]
     print ('result',result)
     return result
 

@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 # Guideline for developing a calculation module for the toolbox
 
 ## Table of contents
@@ -705,9 +704,3 @@ This is usually done by the data integration when a new layer in added to the Gi
 [logoselect]: https://upload.wikimedia.org/wikipedia/commons/d/d1/Drop-down_list_example.PNG ""
 [logorange]: https://upload.wikimedia.org/wikipedia/commons/e/ed/Slider_%28computing%29_example.PNG ""
 [logoradio]: https://upload.wikimedia.org/wikipedia/commons/c/cb/Radio_button.png ""
-=======
-Please consult the [wiki](https://citiwatts.github.io/wiki/developers-section/) to have information about developing calculation modules.
-
-# Specificity
-(add here specific information about your calculation module)
->>>>>>> 9decafbddf4b8ce64d8b3864eff2da98d562b699

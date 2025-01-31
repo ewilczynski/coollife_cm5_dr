@@ -1,7 +1,7 @@
 
-from flask import request
+from flask import request, abort, jsonify ,url_for, g,flash
 from . import api
-from .. import SIGNATURE
+from .. import SIGNATURE,CM_NAME
 import json
 import requests
 import logging
@@ -10,6 +10,7 @@ from flask import send_from_directory
 from  app import helper
 from app import constant
 
+from app.api_v1 import errors
 import socket
 from . import calculation_module
 from app import CalculationModuleRpcClient
@@ -126,6 +127,7 @@ def compute():
     print ('CM will Compute ')
     #import ipdb; ipdb.set_trace()
     data = request.get_json()
+    #areas = data['selectedAreas']
 
     #TODO CM Developper do not need to change anything here
     # here is the inputs layers and parameters
@@ -136,23 +138,24 @@ def compute():
 
 
 
-    inputs_vector_selection = helper.validateJSON(data["inputs_vector_selection"])
-    print ('inputs_vector_selection', inputs_vector_selection)
-    LOGGER.info('inputs_vector_selection', inputs_vector_selection)
+    #inputs_vector_selection = helper.validateJSON(data["inputs_vector_selection"])
+    #print ('inputs_vector_selection', inputs_vector_selection)
+    #LOGGER.info('inputs_vector_selection', inputs_vector_selection)
 
     output_directory = UPLOAD_DIRECTORY
     # call the calculation module function
-    result = calculation_module.calculation(output_directory, inputs_raster_selection,inputs_vector_selection,inputs_parameter_selection)
+    #result = calculation_module.calculation(output_directory, inputs_raster_selection,inputs_parameter_selection,areas)
+    result = calculation_module.calculation(output_directory, inputs_raster_selection,inputs_parameter_selection)
 
     response = {
         'result': result
-
-
     }
 
- #   LOGGER.info('response', response)
+    # LOGGER.info('response', response)
 
-#    LOGGER.info("type response ",type(response))
+    # LOGGER.info("type response ",type(response))
     # convert response dict to json
     response = json.dumps(response)
     return response
+
+

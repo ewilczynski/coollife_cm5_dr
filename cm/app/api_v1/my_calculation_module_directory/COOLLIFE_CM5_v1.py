@@ -426,7 +426,7 @@ def get_pv():
     pv_header_no_of_rows = 10
     pv_footer_no_of_rows = 10
     pv_weather_data = pd.read_csv(pv_filename, skiprows=pv_header_no_of_rows, skipfooter=pv_footer_no_of_rows,
-                                    index_col=0, parse_dates=True,
+                                    index_col=0, parse_dates=True, 
                                     date_parser=lambda x: dt.datetime.strptime(x, "%Y%m%d:%H%M"), engine='python')
     
     pv_weather_data = pv_weather_data.tz_localize(None)
@@ -452,10 +452,10 @@ def get_pv_tmy():
     with open(pv_filename, 'wb') as pv_file:
         pv_file.write(r.content)
     
-    pv_header_no_of_rows = 16
+    pv_header_no_of_rows = 17
     pv_footer_no_of_rows = 12
     pv_weather_tmy_data = pd.read_csv(pv_filename, skiprows=pv_header_no_of_rows, skipfooter=pv_footer_no_of_rows,
-                                    index_col=0, parse_dates=True,
+                                    index_col=0, parse_dates=True, #names=['time(UTC)', 'T2m', 'RH', 'G(h)', 'Gb(n)', 'Gd(h)', 'IR(h)', 'WS10m', 'WD10m', 'SP'],
                                     date_parser=lambda x: dt.datetime.strptime(x, "%Y%m%d:%H%M"), engine='python')
     
     pv_weather_tmy_data = pv_weather_tmy_data.tz_localize(None)
@@ -538,7 +538,9 @@ def solar_gains():
     else:
         roof_pitch = user_roof_pitch
     # Calculate roof area based on external structure area and pitch
-    a_roof_total = gfa_external / np.cos(roof_pitch)
+    #a_roof_total = gfa_external / np.cos(roof_pitch)
+    tilt_radians = session_dict["roof_tilt"]*(np.pi/180)
+    a_roof_total = gfa_external / np.cos(tilt_radians)
     
     # Calculate area of window
     a_window_front = (window_front_proportion/100) * (a_external_front - a_door_1)
@@ -1437,7 +1439,9 @@ def bau_simulation():
 # 4. Outputs/KPIs 
 #------------------------------------------------------------------------------
 
-def graph_output():
+def graph_output(country_name):
+    session_dict = load_parameters(country_name)
+    roof_uvalue, wall_uvalue, window_uvalue, gfa, nominal_power, fec, country_name = input_select()    
     
     results_table_dr = opt_model()
     results_table_sim = bau_simulation() #opt_model_bau()
@@ -1470,21 +1474,50 @@ def graph_output():
     return fig_name_g1
 
 def load_graphics(country_name):
+
     session_dict = load_parameters(country_name)
+    roof_uvalue, wall_uvalue, window_uvalue, gfa, nominal_power, fec, country_name = input_select()    
+    
     results_table_dr = opt_model()
     results_table_sim = bau_simulation() #opt_model_bau()
     results_table = pd.merge(results_table_dr, results_table_sim, left_index=True, right_index=True)
     results_table = results_table.rename(columns={"Q_hp_sh":"Q_hp_sh_dr"})
     results_table['Q_hp_sh_dr_total'] = results_table['Q_hp_sh_dr'] - results_table['pv_power'] 
     results_table['Q_hp_sh_dr_actual'] = np.where(results_table['pv_power'] > results_table['Q_hp_sh_dr_total'], results_table['pv_power'] , results_table['Q_hp_sh_dr_total'])
+    results_table['Q_hp_sh_bau_pv'] = np.where((results_table['Q_C_nd_BAU_sim'] - results_table['pv_power']) < 0, 0,results_table['Q_C_nd_BAU_sim'] - results_table['pv_power'])
+
+    
     results_table = results_table[24:len(results_table)]
     
+    bau_max = results_table['Q_C_nd_BAU_sim'].max()
+    bau_max_pv = results_table['Q_hp_sh_bau_pv'].max()
+    dr_max_minus_pv = results_table['Q_hp_sh_dr_total'].max()
+    
+    bau_energy = results_table['Q_C_nd_BAU_sim'].sum()
+    bau_energy_pv = results_table['Q_hp_sh_bau_pv'].sum()
+    dr_energy_minus_pv = results_table['Q_hp_sh_dr_total'].sum()
+    
+    
+    result = dict()
+    result['name'] = "DR/DSM"
+    result['indicator'] = [
+        {"unit": "W", "name": "Peak Power: Non-PV Cooling Demand - BAU (no PV)","value": str(float(bau_max))},         
+        {"unit": "W", "name": "Peak Power: Non-PV Cooling Demand - BAU (w/ PV, non-optimized)","value": str(float(bau_max_pv))},         
+        {"unit": "W", "name": "Peak Power: Non-PV Cooling Demand - DR (PV-optimized)","value": str(float(dr_max_minus_pv))},
+        {"unit": "W", "name": "Total Energy: Non-PV Cooling Demand - BAU (no PV)","value": str(float(bau_energy))},
+        {"unit": "W", "name": "Total Energy: Non-PV Cooling Demand - BAU (w/ PV, non-optimized)","value": str(float(bau_energy_pv))},
+        {"unit": "W", "name": "Total Energy: Non-PV Cooling Demand - DR (PV-optimized)","value": str(float(dr_energy_minus_pv))},
+    ]
+    
+    return result
+
+    """
     graphics =  [
         {
             'type': 'line',
             'label': session_dict["country_name"]+': '+session_dict["scenario"]+' scenario vs. BAU simulation',
-            'xlabel': 'Power (W)',
-            'ylabel': 'Hour',
+            'xlabel': 'Hour',
+            'ylabel': 'Power (W)',
             # 'options': {
             #     'scales': {
             #         'xAxes': [{'stacked': True}],  # Enable stacking on the x-axis
@@ -1492,7 +1525,7 @@ def load_graphics(country_name):
             #     }
             # },
             "data": {
-                "labels": ['2030', '2040', '2050'],  # Labels for x-axis
+                "labels": ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23', '24'],  # Labels for x-axis
                 "datasets": [
                     {
                         "label": "Cooling Demand - BAU",
@@ -1514,5 +1547,6 @@ def load_graphics(country_name):
         }
     ]
     return graphics
-#graph_output()
+    """
+#graph_output('Italy')
 
