@@ -14,6 +14,7 @@ def generate_output_file_tif(output_directory):
 
 def generate_output_file_zip(output_directory):
     return generate_output_file_with_extension(output_directory,'.zip')
+
 def generate_output_file_csv(output_directory):
     return generate_output_file_with_extension(output_directory, '.csv')
 
@@ -25,6 +26,19 @@ def generate_output_file_with_extension(output_directory,extension):
     filename = str(uuid.uuid4()) + extension
     output_raster_path = output_directory+'/'+filename  # output raster
     return output_raster_path
+
+def create_extra_zip_file(output_directory, *file_paths):
+    if not os.path.exists(output_directory):
+        raise FileNotFoundError(f"The output directory '{output_directory}' does not exist. Please create it first.")
+
+    filename = str(uuid.uuid4()) + '.zip'
+    zip_file_path = os.path.join(output_directory, filename)
+
+    with ZipFile(zip_file_path, 'w') as zf:
+        for file_path in file_paths:
+            if os.path.isfile(file_path):
+                zf.write(file_path, arcname=os.path.basename(file_path))
+    return zip_file_path
 
 def validateJSON(value):
     #print (message + 'type', type(value))
@@ -67,10 +81,3 @@ def generate_directory(tile_path):
         print ("Creation of the directory %s failed" % tile_path)
     else:
         print ("Successfully created the directory %s" % tile_path)
-
-
-
-
-
-
-

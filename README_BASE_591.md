@@ -1,15 +1,14 @@
-<<<<<<< HEAD
-# Guideline for developing a calculation module for the toolbox
+# guideline for developing a calculation module for the Hotmaps toolbox
 
 ## Table of contents
 
 - [Introduction](#Introduction)
 
-- [Connect a calculation module into the toolbox](#Connect-a-calculation-module-into-the-toolbox)
+- [Connect a calculation module into the Hotmaps toolbox](#Connect-a-calculation-module-into-the-Hotmaps-toolbox)
 
-- [Retrieve the calculation module fundamentals](#Retrieve-the-calculation-module-fundamentals)
+- [Retrieve the Hotmaps calculation module fundamentals](#Retrieve-the-Hotmaps-calculation-module-fundamentals)
 
-- [Calculation module architecture](#Calculation-module-architecture)
+- [Caclulation module architecture](#Caclulation-module-architecture)
 
 - [Handling calculation module inputs](#Handling-calculation-module-inputs)
 
@@ -30,10 +29,10 @@
 
 **Calculation module definition**
 
-A calulation Module (CM) is a plugin for toolbox which is able to extend toolbox functionality.
+A calulation Module (CM) is a plugin for Hotmaps toolbox which is able to extend toolbox functionality.
 
 
-## Connect a calculation module into the toolbox
+## Connect a calculation module into the Hotmaps toolbox
 
 
 ```
@@ -56,8 +55,8 @@ _______________________________
 ```
 
 
-The CM can run on its own, but when it is on the same network as the toolbox API (HTAPI), it will be automatically detected.
-Using Celery queue to register, HTAPI contains heartbeat that will check at anytime if a calculation is running or not. In other words, the architecture is working in realtime and detects new CMs.
+The CM can run on its own, but when it is on the same network as the Hotmaps toolbox API (HTAPI), it will be automatically detected.
+Using Celery queue to register, HTAPI contains heartbeat that will check at anytime if a calculation is running or not. In other words, the achitecture is working in realtime and detects new CMs.
 
 
 
@@ -66,9 +65,9 @@ Using Celery queue to register, HTAPI contains heartbeat that will check at anyt
 
 
 
-## Retrieve the calculation module fundamentals
+##Retrieve the Hotmaps calculation module fundamentals
 
-The architecture of the repositories is illustrated below. Each CM inherits from the base calculation module (cm base; upstream):
+The architecture of the Hotmaps repositories is illustrated below. Each CM inherits from the base calculation module (cm base; upstream):
 
 ```
 GIT Repository architecture:
@@ -89,12 +88,12 @@ GIT Repository architecture:
 ```
 
 
-In order to create a repository, follow the belowing steps.
+In order to create a Hotmaps repository, follow the belowing steps.
 
 
 
-1. Create a repository on your GitHub account and assign a name to it, e.g. **name_of_my_module**.\
-Do **NOT** initialize the repository with a license nor a readme file.
+1. Create a repository on your Hotmaps GitHub account and assign a name to it, e.g. **name_of_my_module**.\
+Do **NOT** initialize the reposiany with a license nor a readme file.
 Create an empty folder on your computer with the same name and go inside the folder.\
 
 2. Use these following git commands to retrieve the code of **base_calculation_module**:
@@ -102,7 +101,7 @@ Create an empty folder on your computer with the same name and go inside the fol
 ``` bash
   git init
   git remote add origin https://github.com/YourUsername/name_of_my_module.git # add a remote link to your repository
-  git remote add upstream https://vlhtuleap.hevs.ch/plugins/git/git-eranet/base_calculation_module.git # add a remote link to the base calculation module (BCM)
+  git remote add upstream https://github.com/HotMaps/base_calculation_module.git # add a remote link to the base calculation module (BCM)
   git pull upstream master
   git add .
   git commit -m "first commit" # update changes
@@ -127,7 +126,7 @@ Create an empty folder on your computer with the same name and go inside the fol
 git pull upstream master
 ```
 
-*If you encounter any issue like GIT conflict please contact EASILab (citiwatts@hevs.ch)*
+*If you encounter any issue like GIT conflict please contact CREM.(support@crem.ch)*
 
 
 6. Release a version of your CM
@@ -139,7 +138,7 @@ git fetch && git checkout master # retrieve master branch
 git merge develop # update the changes from develop to master
 git push origin master # push changes on master branch
 ```
-7. And tag your version to take a snapshot of it
+and tag your version to take a snapshot of it
 ```bash
 git tag -a number_of_the_version
 ```
@@ -148,10 +147,10 @@ git tag -a number_of_the_version
 
 *******************************   
 
-## Calculation module architecture:
+## Caclulation module architecture:
 
 
-The architecture of a sample CM is illustrated below:
+The architecture of a sample Hotmaps CM is illustrated below:
 
 
 
@@ -171,7 +170,7 @@ The architecture of a sample CM is illustrated below:
     │   │   ├── caching.py
     │   │   ├── json.py
     │   │   ├── paginate.py
-    │   │   └── rate_limit.py
+    │   │   └──rate_limit.py
     │   │
     │   │
     │   ├── __init__.py
@@ -207,7 +206,7 @@ The architecture of a sample CM is illustrated below:
 
 * `app/requirements.txt` - the list of Python framework  (PyPi) requirements.
 
-* `app/api_v1/calculation_module.py` - here you can call your CM
+* `app/api_v1/calculation_module.py` - hear you can call your CM
 * `app/api_v1/my_calculation_module_directory` - all additionnal files for running the calculation module must be added in this directory
 
 
@@ -221,7 +220,7 @@ The architecture of a sample CM is illustrated below:
 ## Handling calculation module inputs
 
 
-In this section, the management of different input types accepted by the base calculation module is explained.
+In this section, the management of different input types accepted by Hotmaps base calculation module is explained.
 
 #### SIGNATURE definition
 In order to identify each calculation module, the system need a SIGNATURE that CM provider should add.
@@ -420,7 +419,7 @@ Find below two examples of inputs, one with a type *input* and the other one wit
 *******************************   
 
 ## Handling calculation module outputs
-In order to show the outputs of your CM in the front-end, your CM should respect the guidelines defined by base_calculation_module.
+ In oder to show the outputs of your CM in the front-end, your CM should respect the guidelines defined by base_calculation_module.
 The purpose of this part is to give developers the ability to build different kinds of outputs (graphic, layers, indicators). All the outputs should be retunred in form of a dictionary ("result" dictionary). Find below an example:
 
 
@@ -462,7 +461,7 @@ The purpose of this part is to give developers the ability to build different ki
 
 ### Indicators
 
-In `transaction.py`, the CM provider can modify the output in order to display as many indicators as they want on the front-end. This indicator will be displayed on the RESULT panel of the front-end.
+In `transaction.py`, the CM provider can modify the output in order to display as many indicators as he/she wants on the front-end. This indicator will be displayed on the RESULT panel of the front-end.
 
 
 ##### Structure of the indicator output
@@ -664,7 +663,7 @@ Before writing any line of code test the existing one, run the tests
 If the test ran without any error, `constant.py` must be changed in order to
   - give a name to your CM
   - build the frontend user interface of the CM
-  - assign a unique CM_ID (please contact EASILab (citiwatts@hevs.ch))
+  - assign a unique CM_ID (please contact the Research Center of Martigny (CREM))
   - modify the SIGNATURE to describe your CM
   - etc
 
@@ -684,11 +683,12 @@ In the root directory:
 
 ## Adding layers for CM 
 
-1. Create a repository in GitLab (To-Do: also provide the link to the GitLab) with the name of the layer in lower case
- `layer_name/data/layer_name.tif`, the repository name must be the same as the layer
-2. This data must be uploaded in the server in the following place `var/hotmaps/repositories/layer_name/data/layer_name.tif`  
-This is usually done by the data integration when a new layer in added to the Gitlab repository
-3. This data must be known by frontend by adding the layer in the file `src/app/layers.ts`
+1. Create a repository in Hotmaps GitLab (To-Do: also provide the link to the Hotmaps gitlab) with the name of the layer in lower case
+ *layer_name/data/layer_name.tif*, the repository name must be the same as the layer
+
+2. this data must be uploaded in the hotmaps server in the folowing place *var/hotmaps/repositories/layer_name/data/layer_name.tif*
+this is usally done by the data integration when a new layer in added to the Gitlab repository of Hotmaps
+3. this data must be known by frontend by adding the layer in the file layer-interation.data.ts (https://github.com/HotMaps/Hotmaps-toolbox-client/blob/master/src/app/features/layers-interaction/layers-interaction.data.ts)
 
 
 <code><ins>**[To Top](#table-of-contents)**</ins></code>
@@ -705,9 +705,3 @@ This is usually done by the data integration when a new layer in added to the Gi
 [logoselect]: https://upload.wikimedia.org/wikipedia/commons/d/d1/Drop-down_list_example.PNG ""
 [logorange]: https://upload.wikimedia.org/wikipedia/commons/e/ed/Slider_%28computing%29_example.PNG ""
 [logoradio]: https://upload.wikimedia.org/wikipedia/commons/c/cb/Radio_button.png ""
-=======
-Please consult the [wiki](https://citiwatts.github.io/wiki/developers-section/) to have information about developing calculation modules.
-
-# Specificity
-(add here specific information about your calculation module)
->>>>>>> 9decafbddf4b8ce64d8b3864eff2da98d562b699

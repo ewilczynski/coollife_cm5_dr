@@ -93,12 +93,12 @@ def calculation(output_directory, inputs_raster_selection,inputs_vector_selectio
     #TODO exemple  output_shpapefile_zipped = create_zip_shapefiles(output_directory, output_shpapefile)
     result = dict()
     result['name'] = CM_NAME
-    #result['indicator'] = [
-    #    {"unit": "GWh", "name": "Heat density total multiplied by  {}".format(factor),"value": str(hdm_sum)}
-    #]
+    result['indicator'] = [
+        {"unit": "GWh/yr", "name": "Heat density total multiplied by  {}".format(factor),"value": str(hdm_sum)}
+    ]
     result['graphics'] = graphics
-    #result['vector_layers'] = vector_layers
-    #result['raster_layers'] = [{"name": "layers of heat_densiy {}".format(factor),"path": output_raster1, "type": "heat"}]
+    result['vector_layers'] = vector_layers #toolchaining
+    result['raster_layers'] = [{"name": "layers of heat_density {}".format(factor),"path": output_raster1, "type": "heat", "layer": "heat_tot_curr_density"}]
     print ('result',result)
     return result
 

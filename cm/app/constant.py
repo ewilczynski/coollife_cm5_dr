@@ -25,6 +25,7 @@ PORT = PORT_DOCKER
 
 TRANFER_PROTOCOLE ='http://'
 INPUTS_CALCULATION_MODULE = [
+<<<<<<< HEAD
     #{'input_name': 'Multiplication factor',
     # 'input_type': 'input',
     # 'input_parameter_name': 'multiplication_factor',
@@ -42,22 +43,43 @@ INPUTS_CALCULATION_MODULE = [
      'input_unit': '',
      'input_min': 'none',
      'input_max': 'none', 'cm_id': CM_ID  # Do no change this value
+=======
+    {'input_name': 'Multiplication factor',
+     'input_type': 'input',
+     'input_description': 'This factor will multiply the layer values',
+     'input_parameter_name': 'multiplication_factor',
+     'input_value': '1',
+     'input_priority': 0,
+     'input_unit': '',
+     'input_min': 0,
+     'input_max': 10,
+     'cm_id': CM_ID  # Do no change this value
+>>>>>>> 9decafbddf4b8ce64d8b3864eff2da98d562b699
      },
 ]
 
 
 SIGNATURE = {
-
-    "category": "Demand",
     "cm_name": CM_NAME,
+<<<<<<< HEAD
     "wiki_url": "https://coollife-project.github.io/wiki/cm-5-demand-side-managementdemand-response/",
     "layers_needed": [],
     "type_layer_needed": [
         {"type": "heat", "description": "Choose a heat demand density layer."}
     ],
     "type_vectors_needed": [],
+=======
+    "category": "Demand",
+    "wiki_url": "https://wiki.hotmaps.hevs.ch/en/CM-Scale-heat-and-cool-density-maps",
+>>>>>>> 9decafbddf4b8ce64d8b3864eff2da98d562b699
     "cm_url": "Do not add something",
     "cm_description": "This calculation module calculates potential to match cooling demand with PV supply.",
     "cm_id": CM_ID,
-    'inputs_calculation_module': INPUTS_CALCULATION_MODULE
+    "authorized_scale":[],
+    "inputs_calculation_module": INPUTS_CALCULATION_MODULE,
+    "layers_needed": [],
+    "type_layer_needed": [
+        {"name":"Heat demand density", "type": "heat", "description": "Choose a heat demand density layer."}
+    ],
+    "type_vectors_needed": [],
 }
