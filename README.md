@@ -126,7 +126,11 @@ Create an empty folder on your computer with the same name and go inside the fol
 git pull upstream master
 ```
 
+<<<<<<< HEAD
 *If you encounter any issue like GIT conflict please contact EASILab (citiwatts@hevs.ch)*
+=======
+*If you encounter any issue like GIT conflict please contact HES-SO Valais-Wallis.(citiwatts@hevs.ch)*
+>>>>>>> 5b4dfd79e2af1fca2a2ffe0c0c668555e5e3c018
 
 
 6. Release a version of your CM
@@ -350,34 +354,28 @@ The JSON payload is an array of inputs and will be used to modify automatically 
 #### Inputs parameters
 
 
-
-
 - **input_name**: name of the CM that will be displayed on the frontend GUI
 
 - **input_type**: the input is the graphical control element that the user needs in order to enter data. There are five possible inputs, see https://getuikit.com/docs/form for more information about the implementation of the frontend GUI.
 
 
   - input: this is a textbox in which the user can enter a value
-
- ![alt text][logoinput]
+   ![alt text][logoinput]
 
   - select: this is a drop down menu that allows the user to choose one value from a list
+   ![alt text][logoselect]
 
- ![alt text][logoselect]
+  - radio: this allows the user to select only one of the predefined choices
+  ![alt text][logoradio]
 
- - radio: this allows the user to select only one of the predefined choices
+  - checkbox: this allows the user to choose between two choices mutually exclusive options
+  ![alt text][logocheckbox]
 
- ![alt text][logoradio]
+  - range: this allows the user to set a value by moving an indicator
+  ![alt text][logorange]
 
- - checkbox: this allows the user to choose between two choices mutually exclusive options
-
- ![alt text][logocheckbox]
-
- - range: this allows the user to set a value by moving an indicator
-
- ![alt text][logorange]
-
-
+- **input_description**: description put in the tooltip, can be empty
+  
 - **input_parameter_name**: input parameter name that the CM needs to retrieve for calculation
 
 - **input_value**: default value for the input that will be displayed on the user interface
